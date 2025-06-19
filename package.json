@@ -1,0 +1,19 @@
+{
+  "name": "provas206",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+ "scripts": {
+  "test:newman": "newman run ./collections/BinanceAPI.postman_collection.json -r htmlextra --reporter-htmlextra-export ./reports/relatorio.html",
+  "test:cypress": "cypress run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "cypress": "^14.5.0",
+    "newman": "^6.2.1",
+    "newman-reporter-htmlextra": "^1.23.1"
+  }
+}
