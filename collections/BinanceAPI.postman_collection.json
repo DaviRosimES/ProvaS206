@@ -1,0 +1,169 @@
+{
+	"info": {
+		"_postman_id": "5d1e9bad-54d5-4495-bc24-bc8572f2b2d1",
+		"name": "Binance API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46035184",
+		"_collection_link": "https://davirosim.postman.co/workspace/DaviRosim's-Workspace~480a53d3-77b9-4c50-8609-6212485fdbd0/collection/46035184-5d1e9bad-54d5-4495-bc24-bc8572f2b2d1?action=share&source=collection_link&creator=46035184"
+	},
+	"item": [
+		{
+			"name": "General",
+			"item": [
+				{
+					"name": "Ping",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Body is empty (Ping OK)\", function () {",
+									"    pm.response.to.have.body(\"{}\");",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.above(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.binance.com/api/v3/ping",
+							"protocol": "https",
+							"host": [
+								"api",
+								"binance",
+								"com"
+							],
+							"path": [
+								"api",
+								"v3",
+								"ping"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Data",
+			"item": [
+				{
+					"name": "Ticker",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Preço retornado é maior que 0\", function () {",
+									"    let jsonData = pm.response.json();",
+									"    let preco = parseFloat(jsonData.price);",
+									"",
+									"    pm.expect(preco).to.be.above(0);",
+									"});",
+									"",
+									"pm.test(\"É bitcoin\", function() {",
+									"    let jsonData = pm.response.json();",
+									"    let symbol = jsonData.symbol;",
+									"",
+									"    pm.expect(symbol).to.be.equal(\"BTCUSDT\")",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+							"protocol": "https",
+							"host": [
+								"api",
+								"binance",
+								"com"
+							],
+							"path": [
+								"api",
+								"v3",
+								"ticker",
+								"price"
+							],
+							"query": [
+								{
+									"key": "symbol",
+									"value": "BTCUSDT"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "Delete Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ordem delete criada da forma errada\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.binance.com/api/v3/order?symbol=BTCUSDT",
+							"protocol": "https",
+							"host": [
+								"api",
+								"binance",
+								"com"
+							],
+							"path": [
+								"api",
+								"v3",
+								"order"
+							],
+							"query": [
+								{
+									"key": "symbol",
+									"value": "BTCUSDT"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
